@@ -39,6 +39,13 @@ if ($failedLast10Min >= 20 || $totalBlockedIps > 0) {
     $riskClass = "risk-low";
 }
 
+$recentAlerts = $pdo->query(
+    "SELECT * FROM security_logs
+     WHERE severity IN ('ALERT', 'WARNING')
+     ORDER BY event_time DESC
+     LIMIT 10"
+)->fetchAll(PDO::FETCH_ASSOC);
+
 $logs = $pdo->query(
     "SELECT * FROM security_logs 
      ORDER BY event_time DESC 
@@ -105,6 +112,32 @@ $blockedIps = $pdo->query(
             <h1><?php echo $totalBlockedIps; ?></h1>
         </div>
 
+    </div>
+
+    <div class="security-info">
+        <h3>Recent Alerts</h3>
+
+        <table>
+            <tr>
+                <th>Time</th>
+                <th>User</th>
+                <th>IP</th>
+                <th>Event</th>
+                <th>Severity</th>
+                <th>Description</th>
+            </tr>
+
+            <?php foreach ($recentAlerts as $alert): ?>
+            <tr>
+                <td><?php echo htmlspecialchars($alert["event_time"]); ?></td>
+                <td><?php echo htmlspecialchars($alert["username"]); ?></td>
+                <td><?php echo htmlspecialchars($alert["ip_address"]); ?></td>
+                <td><?php echo htmlspecialchars($alert["event_type"]); ?></td>
+                <td><?php echo htmlspecialchars($alert["severity"]); ?></td>
+                <td><?php echo htmlspecialchars($alert["description"]); ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
     </div>
 
     <div class="security-info">

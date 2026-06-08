@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'config.php';
 
 $message = "";
@@ -63,7 +64,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php echo htmlspecialchars($message); ?>
     </p>
 
-    <a href="login_secure.php">Quay lại đăng nhập</a>
+    <?php if (isset($_SESSION["username"])): ?>
+        <a href="dashboard.php">Quay lại Dashboard</a>
+    <?php else: ?>
+        <a href="login_secure.php">Quay lại đăng nhập</a>
+    <?php endif; ?>
 
 </div>
 
