@@ -1,4 +1,11 @@
-# Hệ Thống Giám Sát, Phát Hiện Và Ngăn Chặn Truy Cập Đăng Nhập Bất Thường Trên Ứng Dụng Web
+# Nhóm 8: Hệ Thống Giám Sát, Phát Hiện Và Ngăn Chặn Truy Cập Đăng Nhập Bất Thường Trên Ứng Dụng Web
+## Thành viên
+
+| STT | Họ và tên            | MSSV     |
+| --- | -------------------- | -------- |
+| 1   | Nguyễn Thị Thùy Linh | 23010633 |
+| 2   | Trần Thảo Vy         | 23010588 |
+| 3   | Nguyễn Anh Quân      | 23010375 |
 
 ## 1. Giới thiệu đề tài
 
