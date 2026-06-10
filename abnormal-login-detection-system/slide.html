@@ -4,27 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hệ Thống Giám Sát Đăng Nhập Bất Thường</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+VietNam+Pro:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0b0f1a;
-            --surface: #141928;
-            --border: rgba(255,255,255,0.06);
-            --text: #e8ecf4;
-            --text-dim: #7a8599;
-            --blue: #4f8cff;
-            --blue-glow: rgba(79,140,255,0.25);
-            --cyan: #22d3ee;
-            --green: #34d399;
-            --amber: #fbbf24;
-            --red: #f87171;
-            --purple: #a78bfa;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --text: #0f172a;
+            --text-dim: #64748b;
+            --blue: #2563eb;
+            --blue-glow: rgba(37,99,235,0.15);
+            --cyan: #0891b2;
+            --green: #16a34a;
+            --amber: #d97706;
+            --red: #dc2626;
+            --purple: #7c3aed;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Be VietNam Pro', sans-serif;
             background: var(--bg);
             color: var(--text);
             overflow: hidden;
@@ -51,11 +51,7 @@
             transform: translateX(60px);
             transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             pointer-events: none;
-            background-image:
-                radial-gradient(ellipse 60% 40% at 50% 0%, rgba(79,140,255,0.06), transparent),
-                linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
-            background-size: 100% 100%, 80px 80px, 80px 80px;
+            background: var(--bg);
         }
 
         .slide.active {
@@ -75,47 +71,47 @@
             top: 30px;
             right: 40px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 13px;
+            font-size: 15px;
             color: var(--text-dim);
             letter-spacing: 2px;
         }
 
         .slide-tag {
             display: inline-block;
-            padding: 6px 16px;
+            padding: 8px 20px;
             border: 1px solid var(--blue);
             color: var(--blue);
             border-radius: 100px;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
             margin-bottom: 28px;
-            background: rgba(79,140,255,0.06);
+            background: rgba(37,99,235,0.06);
         }
 
         h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 52px;
-            font-weight: 900;
-            line-height: 1.1;
+            font-family: 'Be VietNam Pro', sans-serif;
+            font-size: 60px;
+            font-weight: 800;
+            line-height: 1.15;
             letter-spacing: -1px;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         h1 .highlight {
-            background: linear-gradient(135deg, var(--blue), var(--cyan));
+            background: linear-gradient(135deg, var(--blue), #7c3aed);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 38px;
+            font-family: 'Be VietNam Pro', sans-serif;
+            font-size: 44px;
             font-weight: 800;
-            margin-bottom: 36px;
+            margin-bottom: 40px;
             letter-spacing: -0.5px;
         }
 
@@ -124,11 +120,11 @@
         }
 
         .subtitle {
-            font-size: 18px;
+            font-size: 20px;
             color: var(--text-dim);
             text-align: center;
-            max-width: 600px;
-            line-height: 1.6;
+            max-width: 650px;
+            line-height: 1.7;
         }
 
         .members {
@@ -140,21 +136,21 @@
         .member {
             background: var(--surface);
             border: 1px solid var(--border);
-            padding: 20px 28px;
+            padding: 22px 30px;
             border-radius: 14px;
             text-align: center;
-            min-width: 180px;
+            min-width: 200px;
         }
 
         .member .name {
             font-weight: 600;
-            font-size: 15px;
-            margin-bottom: 4px;
+            font-size: 17px;
+            margin-bottom: 6px;
         }
 
         .member .id {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
+            font-size: 14px;
             color: var(--blue);
         }
 
@@ -184,8 +180,9 @@
         }
 
         .card:hover {
-            border-color: rgba(79,140,255,0.3);
+            border-color: rgba(37,99,235,0.25);
             transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
         }
 
         .card .icon {
@@ -199,21 +196,21 @@
             margin-bottom: 14px;
         }
 
-        .card .icon.blue { background: rgba(79,140,255,0.12); }
-        .card .icon.green { background: rgba(52,211,153,0.12); }
-        .card .icon.amber { background: rgba(251,191,36,0.12); }
-        .card .icon.red { background: rgba(248,113,113,0.12); }
-        .card .icon.purple { background: rgba(167,139,250,0.12); }
-        .card .icon.cyan { background: rgba(34,211,238,0.12); }
+        .card .icon.blue { background: rgba(37,99,235,0.08); }
+        .card .icon.green { background: rgba(22,163,74,0.08); }
+        .card .icon.amber { background: rgba(217,119,6,0.08); }
+        .card .icon.red { background: rgba(220,38,38,0.08); }
+        .card .icon.purple { background: rgba(124,58,237,0.08); }
+        .card .icon.cyan { background: rgba(8,145,178,0.08); }
 
         .card h4 {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 600;
             margin-bottom: 8px;
         }
 
         .card p {
-            font-size: 13px;
+            font-size: 15px;
             color: var(--text-dim);
             line-height: 1.5;
         }
@@ -239,13 +236,13 @@
 
         .tech-row .label {
             color: var(--text-dim);
-            font-size: 13px;
-            min-width: 150px;
+            font-size: 15px;
+            min-width: 170px;
         }
 
         .tech-row .value {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
+            font-size: 16px;
             color: var(--blue);
             font-weight: 600;
         }
@@ -272,12 +269,12 @@
 
         .flow-step .step-title {
             font-weight: 600;
-            font-size: 14px;
+            font-size: 16px;
             margin-bottom: 4px;
         }
 
         .flow-step .step-desc {
-            font-size: 11px;
+            font-size: 13px;
             color: var(--text-dim);
         }
 
@@ -293,41 +290,41 @@
             max-width: 800px;
             border-collapse: separate;
             border-spacing: 0;
-            font-size: 13px;
+            font-size: 15px;
         }
 
         .log-table th {
             background: var(--surface);
             color: var(--text-dim);
             font-weight: 600;
-            font-size: 11px;
+            font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            padding: 10px 16px;
+            padding: 12px 18px;
             text-align: left;
             border-bottom: 1px solid var(--border);
         }
 
         .log-table td {
-            padding: 10px 16px;
+            padding: 12px 18px;
             border-bottom: 1px solid var(--border);
             font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
+            font-size: 14px;
         }
 
         .badge {
             display: inline-block;
-            padding: 3px 10px;
+            padding: 4px 12px;
             border-radius: 100px;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 600;
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Be VietNam Pro', sans-serif;
         }
 
-        .badge-green { background: rgba(52,211,153,0.12); color: var(--green); }
-        .badge-amber { background: rgba(251,191,36,0.12); color: var(--amber); }
-        .badge-red { background: rgba(248,113,113,0.12); color: var(--red); }
-        .badge-blue { background: rgba(79,140,255,0.12); color: var(--blue); }
+        .badge-green { background: rgba(22,163,74,0.08); color: var(--green); }
+        .badge-amber { background: rgba(217,119,6,0.08); color: var(--amber); }
+        .badge-red { background: rgba(220,38,38,0.08); color: var(--red); }
+        .badge-blue { background: rgba(37,99,235,0.08); color: var(--blue); }
 
         /* ── RBAC CARDS ─────────────────────────── */
         .role-card {
@@ -348,7 +345,7 @@
         }
 
         .role-card h4 {
-            font-size: 18px;
+            font-size: 20px;
             margin-bottom: 16px;
         }
 
@@ -358,8 +355,8 @@
         }
 
         .role-card li {
-            padding: 8px 0;
-            font-size: 14px;
+            padding: 10px 0;
+            font-size: 16px;
             color: var(--text-dim);
             border-bottom: 1px solid var(--border);
             display: flex;
@@ -401,23 +398,23 @@
         .demo-card .screen {
             width: 100%;
             height: 120px;
-            background: linear-gradient(135deg, rgba(79,140,255,0.08), rgba(34,211,238,0.05));
+            background: linear-gradient(135deg, rgba(37,99,235,0.06), rgba(124,58,237,0.04));
             border-radius: 8px;
             margin-bottom: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 32px;
-            border: 1px dashed rgba(79,140,255,0.2);
+            border: 1px dashed rgba(37,99,235,0.15);
         }
 
         .demo-card h5 {
-            font-size: 14px;
+            font-size: 16px;
             margin-bottom: 4px;
         }
 
         .demo-card p {
-            font-size: 12px;
+            font-size: 14px;
             color: var(--text-dim);
         }
 
@@ -436,14 +433,14 @@
             gap: 14px;
             background: var(--surface);
             border: 1px solid var(--border);
-            padding: 14px 20px;
+            padding: 16px 22px;
             border-radius: 10px;
-            font-size: 14px;
+            font-size: 16px;
         }
 
         .result-item .dot {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             background: var(--green);
             flex-shrink: 0;
@@ -459,11 +456,11 @@
             align-items: center;
             gap: 16px;
             z-index: 100;
-            background: var(--surface);
+            background: white;
             border: 1px solid var(--border);
             padding: 10px 20px;
             border-radius: 100px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
 
         .nav button {
@@ -482,7 +479,7 @@
         }
 
         .nav button:hover {
-            background: rgba(79,140,255,0.1);
+            background: rgba(37,99,235,0.06);
             border-color: var(--blue);
             color: var(--blue);
         }
@@ -500,7 +497,7 @@
             top: 0;
             left: 0;
             height: 3px;
-            background: linear-gradient(90deg, var(--blue), var(--cyan));
+            background: linear-gradient(90deg, var(--blue), #7c3aed);
             transition: width 0.4s ease;
             z-index: 100;
         }
@@ -710,17 +707,17 @@
             </div>
         </div>
         <div style="margin-top: 36px;" class="flow">
-            <div class="flow-step" style="border-color: rgba(248,113,113,0.3);">
+            <div class="flow-step" style="border-color: rgba(220,38,38,0.2);">
                 <div class="step-title" style="color: var(--red);">Sai 5 lần</div>
                 <div class="step-desc">Khóa tài khoản 1 phút</div>
             </div>
             <div class="flow-arrow">&#8594;</div>
-            <div class="flow-step" style="border-color: rgba(251,191,36,0.3);">
+            <div class="flow-step" style="border-color: rgba(217,119,6,0.2);">
                 <div class="step-title" style="color: var(--amber);">10 IP fail/phút</div>
                 <div class="step-desc">Chặn IP tạm thời</div>
             </div>
             <div class="flow-arrow">&#8594;</div>
-            <div class="flow-step" style="border-color: rgba(79,140,255,0.3);">
+            <div class="flow-step" style="border-color: rgba(37,99,235,0.2);">
                 <div class="step-title" style="color: var(--blue);">Dashboard</div>
                 <div class="step-desc">Admin giám sát</div>
             </div>
@@ -862,7 +859,7 @@
                 <p>Giám sát an ninh cho Admin</p>
             </div>
         </div>
-        <p class="subtitle" style="margin-top: 28px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--cyan);">
+        <p class="subtitle" style="margin-top: 28px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--blue);">
             Demo live: http://localhost:8000
         </p>
     </div>
