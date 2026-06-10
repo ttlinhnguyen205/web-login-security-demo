@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #e8f0ff, #f7f9fc);
     margin: 0;
     padding: 0;
@@ -11,7 +11,7 @@ body {
     background: white;
     padding: 35px;
     border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 h2 {
@@ -34,9 +34,16 @@ input {
     padding: 13px;
     margin-top: 8px;
     box-sizing: border-box;
-    border: 1px solid #bbb;
+    border: 1px solid #d6d6d6;
+    transition: all .2s ease;
     border-radius: 6px;
     font-size: 15px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, .15);
 }
 
 button {
@@ -82,13 +89,16 @@ th {
     color: white;
 }
 
-td, th {
+td,
+th {
     padding: 10px;
 }
+
 .wide {
     width: 90%;
     max-width: 1100px;
 }
+
 .dashboard-wrapper {
     width: 90%;
     max-width: 1100px;
@@ -96,12 +106,17 @@ td, th {
 }
 
 .dashboard-header {
-    background: white;
+    background: linear-gradient(135deg, #0d6efd, #3d8bfd);
+    color: white;
     padding: 30px;
     border-radius: 18px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
     margin-bottom: 25px;
     text-align: center;
+}
+
+.dashboard-header p {
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .dashboard-header h1 {
@@ -112,13 +127,21 @@ td, th {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 22px;
+    align-items: stretch;
+    margin-top: 25px;
 }
 
 .card {
     background: white;
     padding: 25px;
     border-radius: 18px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+    transition: all .25s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
 .card h3 {
@@ -151,7 +174,7 @@ td, th {
     margin-top: 25px;
     padding: 25px;
     border-radius: 18px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
 .security-info li {
@@ -159,6 +182,8 @@ td, th {
 }
 
 .logout-btn {
+    box-shadow: 0 4px 12px rgba(220, 53, 69, .3);
+    transition: .2s;
     display: inline-block;
     margin-top: 25px;
     background: #dc3545;
@@ -170,8 +195,13 @@ td, th {
 }
 
 .logout-btn:hover {
+    transform: translateY(-2px);
     background: #bb2d3b;
     text-decoration: none;
+}
+
+.security-info h3 {
+    color: #dc3545;
 }
 
 @media (max-width: 800px) {
@@ -179,13 +209,14 @@ td, th {
         grid-template-columns: 1fr;
     }
 }
+
 .risk-box {
     padding: 25px;
     border-radius: 18px;
     margin-bottom: 25px;
     text-align: center;
     color: white;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
 .risk-low {
@@ -221,4 +252,27 @@ td, th {
 .security-info th {
     background: #0d6efd;
     color: white;
+}
+
+.security-info tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+.security-info tr:hover {
+    background: #eef4ff;
+}
+
+.severity-info {
+    color: #198754;
+    font-weight: bold;
+}
+
+.severity-warning {
+    color: #fd7e14;
+    font-weight: bold;
+}
+
+.severity-alert {
+    color: #dc3545;
+    font-weight: bold;
 }
