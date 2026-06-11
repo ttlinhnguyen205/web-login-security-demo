@@ -43,7 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $user["locked_until"] != null &&
                 strtotime($user["locked_until"]) > time()
             ) {
-                $message = "Tài khoản đang bị khóa tạm thời.";
 
                 write_log(
                     $pdo,
@@ -52,6 +51,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     "ALERT",
                     "Blocked login attempt because account is locked"
                 );
+
+                $countIpFail = $pdo->prepare(
+                    "SELECT COUNT(*)
+         FROM security_logs
+         WHERE ip_address = ?
+         AND event_type IN ('LOGIN_FAILED','LOGIN_BLOCKED')
+         AND event_time >= datetime('now', '-10 minute')"
+                );
+
+                $countIpFail->execute([$ip_address]);
+                $ipFailCount = $countIpFail->fetchColumn();
+
+                if ($ipFailCount >= 10) {
+
+                    $blockedUntil = date("Y-m-d H:i:s", time() + 300);
+
+                    $blockIp = $pdo->prepare(
+                        "INSERT INTO blocked_ips
+            (ip_address, reason, blocked_until)
+            VALUES (?, ?, ?)"
+                    );
+
+                    $blockIp->execute([
+                        $ip_address,
+                        "Too many failed login attempts from same IP",
+                        $blockedUntil
+                    ]);
+
+                    write_log(
+                        $pdo,
+                        $username,
+                        "RATE_LIMIT_EXCEEDED",
+                        "ALERT",
+                        "IP blocked because of too many failed login attempts"
+                    );
+
+                    $message = "IP đã bị chặn trong 5 phút.";
+                } else {
+                    $message = "Tài khoản đang bị khóa trong 5 phút.";
+                }
             } else {
                 if (
                     $user["locked_until"] != null &&
@@ -113,13 +152,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                          FROM security_logs
                          WHERE ip_address = ?
                          AND event_type = 'LOGIN_FAILED'
-                         AND event_time >= datetime('now', '-1 minute')"
+                         AND event_time >= datetime('now', '-10 minute')"
                     );
                     $countIpFail->execute([$ip_address]);
                     $ipFailCount = $countIpFail->fetchColumn();
 
                     if ($ipFailCount >= 10) {
-                        $blockedUntil = date("Y-m-d H:i:s", time() + 60);
+                        $blockedUntil = date("Y-m-d H:i:s", time() + 300);
 
                         $blockIp = $pdo->prepare(
                             "INSERT INTO blocked_ips
@@ -140,7 +179,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             "IP blocked because of too many failed login attempts"
                         );
 
-                        $message = "Phát hiện đăng nhập bất thường. IP bị chặn trong 1 phút.";
+                        $message = "Phát hiện đăng nhập bất thường. IP bị chặn trong 5 phút.";
                     }
 
                     if ($failed >= 5) {
